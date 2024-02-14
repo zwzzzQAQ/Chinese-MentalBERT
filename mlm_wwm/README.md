@@ -14,7 +14,10 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-## Depression Dictionary Guided Whole Word Masking Model
+# Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis
+
+## Depression Dictionary Guided Whole Word Masking 
+We have opened the [Chinese MentalBERT](https://huggingface.co/zwzzz/Chinese-MentalBERT) model on huggingface.
 
 The following example will be executed on a corpus aggregated from four datasets: comments from the “Zoufan” Weibo treehole, 
 the Weibo Depression “Chaohua” (a super topic on Weibo), the Sina Weibo Depression Dataset ([SWDD](https://github.com/ethan-nicholas-tsai/SWDD)), and 
@@ -65,7 +68,7 @@ python run_mlm_wwm.py \
     --do_eval \
     --output_dir $OUTPUT_DIR
 ```
-## Downstream task finetuning and evaluation
+## Downstream Task Finetuning and Evaluation
 The proposed pretrained model underwent evaluation on four public datasets in the mental health domain, including sentiment analysis, suicide detection and cognitive distortion identification.
 
 The sentiment analysis task is derived from [SMP2020-EWECT](https://github.com/BrownSweater/BERT_SMP2020-EWECT). This Weibo emotion classification evaluation task comprises two datasets: the first is a usual Weibo dataset, featuring randomly collected data on various topics; the second is an epidemic-related Weibo dataset. The Weibo data included all pertain to the COVID epidemic. The objective of the Weibo emotion classification task is to identify the emotions contained in Weibo posts. The input consists of a Weibo post, and the output is the identified emotion category contained in the Weibo post. In this task, the dataset categorizes Weibo posts into one of six categories based on the emotions they contain: positive, angry, sad, fearful, surprised, and no emotion.
