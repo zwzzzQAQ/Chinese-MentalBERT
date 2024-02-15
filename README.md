@@ -21,6 +21,19 @@ We published our model on huggingface([link](https://huggingface.co/zwzzz/Chines
 
 If you use this material, we would appreciate if you could cite the following reference.
 
+## Citation
+
+```bash
+@misc{zhai2024chinese,
+      title={Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis}, 
+      author={Wei Zhai and Hongzhi Qi and Qing Zhao and Jianqiang Li and Ziqi Wang and Han Wang and Bing Xiang Yang and Guanghui Fu},
+      year={2024},
+      eprint={2402.09151},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL}
+}
+```
+
 ## Pre-training
 1.Prepare your own pretraining corpus
 
