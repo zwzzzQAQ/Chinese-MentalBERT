@@ -15,7 +15,7 @@ limitations under the License.
 -->
 
 # Chinese MentalBERT
-This repository contains material associated to [this paper](https://arxiv.org/pdf/2402.09151.pdf).
+This repository contains material associated to [Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis](https://arxiv.org/pdf/2402.09151.pdf).
 
 We published our model on huggingface([link](https://huggingface.co/zwzzz/Chinese-MentalBERT)).
 
