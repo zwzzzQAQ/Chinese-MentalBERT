@@ -69,17 +69,19 @@ We use two public data sets as pretraining corpus examples and the depression le
 
 In the `pre_processing.py`, it includes the following steps: 
 
-1. **Data Cleaning:** remove irrelevant information, which included URLs, user tags (e.g., @username), topic tags (e.g., #topic#), and we also removed special symbols, emoticons, and unstructured characters.
-2. **Sentence Concatenation:** Connect all cleaned sentences in their original sequence to form a continuous stream of text.
-3. **Segmentation into 128-Token Samples**: Split the continuous text stream into multiple samples, each containing 128 tokens, to facilitate efficient processing and enable the model to learn long-distance dependencies in the text.
+1. **Data cleaning:** remove irrelevant information, which included URLs, user tags (e.g., @username), topic tags (e.g., #topic#), and we also removed special symbols, emoticons, and unstructured characters.
+2. **Sentence concatenation:** Connect all cleaned sentences in their original sequence to form a continuous stream of text.
+3. **Segmentation into 128-token samples**: Split the continuous text stream into multiple samples, each containing 128 tokens, to facilitate efficient processing and enable the model to learn long-distance dependencies in the text.
+
+And put your data as [`TRAIN_FILE`](#Domain-adaptive-pre-training-on-the-corpus) when you run the pre-training.
 
 ### Configure word segmentation tool
 
-Download the word segmentation tool LTP ([link](https://github.com/HIT-SCIR/ltp)) and place it in the pretrain path
+Download the word segmentation tool LTP ([link](https://github.com/HIT-SCIR/ltp)) and put it as [`LTP_RESOURCE`](#Domain-adaptive-pre-training-on-the-corpus) when you run the pre-training.
 
 ### Download the foundational pre-trained model as start point
 
-We utilized the Chinese pre-trained BERT model **([Chinese-BERT-wwm-ext](<https://huggingface.co/hfl/chinese-bert-wwm-ext>))** [3] in our experiment for the foundational pre-trained model. And put it under the pretrain path
+We utilized the Chinese pre-trained BERT model **([Chinese-BERT-wwm-ext](<https://huggingface.co/hfl/chinese-bert-wwm-ext>))** [3] in our experiment for the foundational pre-trained model. And put it as [`BERT_RESOURCE`](#Domain-adaptive-pre-training-on-the-corpus) when you run the pre-training.
 
 ### Domain adaptive pre-training on the corpus
 
