@@ -14,14 +14,20 @@ See the License for the specific language governing permissions and
 limitations under the License.
 -->
 
-# Chinese MentalBERT
-This repository contains material associated to [Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis](https://arxiv.org/pdf/2402.09151.pdf).
+# Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis
+This repository contains material associated to [this paper](https://arxiv.org/pdf/2402.09151.pdf).
 
-We published our model on huggingface([link](https://huggingface.co/zwzzz/Chinese-MentalBERT)).
+It contains:
+
+* link to domain adaptive pretrained models for Chinese mental health domain ([link](#Trained-ChineseMentalBERT))
+* link to trained model for 4 evaluation tasks: two semantic recognition tasks [(link)](<#>), suicide classification ([link](<#>)), cognitive distortion ([link](<#>))
+* code and material for domain adaptive pretraining ([link](#Domain-adaptive-Pre-training))
+* code and material for downstream tasks finetuning and evaluation ([link](#Downstream-task-fine-tuning-and-evaluation))
 
 If you use this material, we would appreciate if you could cite the following reference.
 
 ## Citation
+
 ```bash
 @misc{zhai2024chinese,
       title={Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis}, 
@@ -32,19 +38,52 @@ If you use this material, we would appreciate if you could cite the following re
       primaryClass={cs.CL}
 }
 ```
-## Pre-training
-1.Prepare your own pretraining corpus
+## Download and install summary
 
-2.Data cleaning, connect all instances and then split according to 128 tokens
+### Material for domain adaptive pretraining
 
-3.Download the depression dictionary([link](https://github.com/omfoggynight/Chinese-Depression-domain-Lexicon)) and place it in the pretrain path
+* **Download pretraining corpus**: 
+  * **Sina Weibo Depression Dataset (SWDD) [5]** : https://github.com/ethan-nicholas-tsai/DepressionDetection
+  * **Weibo User Depression Detection Dataset (WU3D) [6]**: https://github.com/aidenwang9867/Weibo-User-Depression-Detection-Dataset
+* **Download the depression lexicon [7]**:  https://github.com/omfoggynight/Chinese-Depression-domain-Lexicon
+* **Download the word segmentation tool LTP:** https://github.com/HIT-SCIR/ltp
+* **Download the Chinese pre-trained BERT model (Chinese-BERT-wwm-ext) [3]**: https://huggingface.co/hfl/chinese-bert-wwm-ext
 
-4.Download the word segmentation tool LTP([link](https://github.com/HIT-SCIR/ltp)) and place it in the pretrain path
+### Material for fine tuning on downstream task
 
-5.Download your favorite pre-training model as the starting point for your pretraining. In this article we chose 
-Chinese-BERT-wwm-ext([link](https://github.com/ymcui/Chinese-BERT-wwm)). Put it under the pretrain path
+* **Download the datasets**: 
+  * **SMP2020-EWECT (Sentiment analysis tasks)**: https://github.com/BrownSweater/BERT_SMP2020-EWECT
+  * **Suicide and cognitive distrotion tasks [4]:** https://github.com/HongzhiQ/SupervisedVsLLM-EfficacyEval
+* **Download the pretrained model:** 
+  * **Chinese MentalBERT:** https://huggingface.co/zwzzz/Chinese-MentalBERT
 
-6.You could run the following:
+
+## Domain adaptive Pre-training
+
+### Prepare the pretraining corpus and domain lexicon
+
+We use two public data sets as pretraining corpus examples and the depression lexicon for guided mask mechanism, see [link](<#Material-for-domain-adaptive-pretraining>) for details. Feel free to add more related corpus or lexion to enrich your pretrain material. 
+
+
+### Data pre-processing
+
+In the `pre_processing.py`, it includes the following steps: 
+
+1. **Data Cleaning:** remove irrelevant information, which included URLs, user tags (e.g., @username), topic tags (e.g., #topic#), and we also removed special symbols, emoticons, and unstructured characters.
+2. **Sentence Concatenation:** Connect all cleaned sentences in their original sequence to form a continuous stream of text.
+3. **Segmentation into 128-Token Samples**: Split the continuous text stream into multiple samples, each containing 128 tokens, to facilitate efficient processing and enable the model to learn long-distance dependencies in the text.
+
+### Configure word segmentation tool
+
+Download the word segmentation tool LTP ([link](https://github.com/HIT-SCIR/ltp)) and place it in the pretrain path
+
+### Download the foundational pre-trained model as start point
+
+We utilized the Chinese pre-trained BERT model **([Chinese-BERT-wwm-ext](<https://huggingface.co/hfl/chinese-bert-wwm-ext>))** [3] in our experiment for the foundational pre-trained model. And put it under the pretrain path
+
+### Domain adaptive pre-training on the corpus
+
+You could run the following:
 
 ```bash
 export TRAIN_FILE=/path/to/train/file
@@ -79,30 +118,45 @@ python run_mlm_wwm.py \
     --do_eval \
     --output_dir $OUTPUT_DIR
 ```
-## Downstream task finetuning and evaluation
-Chinese MentalBERT is evaluated on four public datasets in the mental health domain, including sentiment analysis, suicide detection, and cognitive distortion identification.
+### Trained ChineseMentalBERT
+
+Our trained model is public available at: https://huggingface.co/zwzzz/Chinese-MentalBERT. You can load it and use it to fine tune on your downstream task.
+
+## Downstream task fine tuning and evaluation
+
+Chinese MentalBERT is evaluated on four public datasets in the mental health domain, including two semantic recognition tasks ([link](<https://github.com/BrownSweater/BERT_SMP2020-EWECT>), suicide classification ([link](<https://github.com/HongzhiQ/SupervisedVsLLM-EfficacyEval>)), cognitive distortion ([link](<https://github.com/HongzhiQ/SupervisedVsLLM-EfficacyEval>)).
 In the provided open source code, we use cognitive distortion multi-label classification as an example as a demonstration of finetuning and evaluation on downstream tasks.
 
-1.Download the cognitive distortion multi-label classification dataset([link](https://github.com/HongzhiQ/SupervisedVsLLM-EfficacyEval))
- and place it in the downstreamTasks path
+### Prepare the experimental datasets
 
-2.Place your own pretrained model or the Chinese MentalBERT downloaded from Huggingface([link](https://huggingface.co/zwzzz/Chinese-MentalBERT)) under the downstreamTasks path
+You can download the public dataset in our experiment as details in [link](# Material-for-fine-tuning-on-downstream-task). And put it on the `downstreamTasks` path
 
-3.You could run the following:
+### Prepare the pretrained model
+
+You can download the [pretrained model](<https://huggingface.co/zwzzz/Chinese-MentalBERT>) and set up
+
+### Fine tuning for the downstream tasks
+
+You could run the following:
 
 ```bash
 python finetuning.py
 ```
+### Performance evaluation
+
 Then you can evaluate like this: 
 
 ```bash
 python evaluate.py
 ```
 ## References
-1.Genghao Li, Bing Li, Langlin Huang, Sibing Hou, et al. 2020. Automatic construction of a depressiondomain lexicon based on microblogs: text mining study. JMIR medical informatics, 8(6):e17650.
+1. Genghao Li, Bing Li, Langlin Huang, Sibing Hou, et al. 2020. Automatic construction of a depressiondomain lexicon based on microblogs: text mining study. JMIR medical informatics, 8(6):e17650.
 
-2.Wanxiang Che, Yunlong Feng, Libo Qin, Ting Liu. 2020. N-LTP: An open-source neural language technology platform for Chinese. arXiv preprint arXiv:2009.11616.
+2. Wanxiang Che, Yunlong Feng, Libo Qin, Ting Liu. 2020. N-LTP: An open-source neural language technology platform for Chinese. arXiv preprint arXiv:2009.11616.
 
-3.Yiming Cui, Wanxiang Che, Ting Liu, Bing Qin, and Ziqing Yang. 2021. Pre-training with whole word masking for chinese bert. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 29:3504–3514.
+3. Yiming Cui, Wanxiang Che, Ting Liu, Bing Qin, and Ziqing Yang. 2021. Pre-training with whole word masking for chinese bert. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 29:3504–3514.
 
-4.Hongzhi Qi, Qing Zhao, Changwei Song, Wei Zhai, Dan Luo, Shuo Liu, Yi Jing Yu, Fan Wang, Huijing Zou, Bing Xiang Yang, et al. 2023. Evaluating the efficacy of supervised learning vs large language models for identifying cognitive distortions and suicidal risks in chinese social media. arXiv preprint arXiv:2309.03564.
+4. Hongzhi Qi, Qing Zhao, Changwei Song, Wei Zhai, Dan Luo, Shuo Liu, Yi Jing Yu, Fan Wang, Huijing Zou, Bing Xiang Yang, et al. 2023. Evaluating the efficacy of supervised learning vs large language models for identifying cognitive distortions and suicidal risks in chinese social media. arXiv preprint arXiv:2309.03564.
+5. Cai, Yicheng, et al. "Depression detection on online social network with multivariate time series feature of user depressive symptoms." *Expert Systems with Applications* 217 (2023): 119538.
+6. Wang, Yiding, et al. "A multitask deep learning approach for user depression detection on sina weibo." *arXiv preprint arXiv:2008.11708* (2020).
+7. Li, Genghao, et al. "Automatic construction of a depression-domain lexicon based on microblogs: text mining study." *JMIR medical informatics* 8.6 (2020): e17650.
