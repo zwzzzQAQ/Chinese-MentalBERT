@@ -16,7 +16,6 @@ limitations under the License.
 
 # Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis
 
-This repository contains material associated to [this paper](https://arxiv.org/pdf/2402.09151.pdf).
 
 It contains:
 
@@ -24,20 +23,6 @@ It contains:
 * link to trained model for 4 evaluation tasks: two semantic recognition tasks [(link)](<#>), suicide classification ([link](<#>)), cognitive distortion ([link](<#>))
 * code and material for domain adaptive pretraining ([link](#Domain-adaptive-Pre-training))
 * code and material for downstream tasks finetuning and evaluation ([link](#Downstream-task-fine-tuning-and-evaluation))
-
-If you use this material, we would appreciate if you could cite the following reference.
-## Citation
-
-```bash
-@misc{zhai2024chinese,
-      title={Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis}, 
-      author={Wei Zhai and Hongzhi Qi and Qing Zhao and Jianqiang Li and Ziqi Wang and Han Wang and Bing Xiang Yang and Guanghui Fu},
-      year={2024},
-      eprint={2402.09151},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
-}
-```
 
 ## Download and install summary
 
