@@ -15,7 +15,6 @@ limitations under the License.
 -->
 
 # Chinese MentalBERT: Domain-Adaptive Pre-training on Social Media for Chinese Mental Health Text Analysis
-This repository contains material associated to [this paper](https://arxiv.org/pdf/2402.09151.pdf).
 
 It contains:
 
