@@ -23,7 +23,6 @@ It contains:
 * code and material for domain adaptive pretraining ([link](#Domain-adaptive-Pre-training))
 * code and material for downstream tasks finetuning and evaluation ([link](#Downstream-task-fine-tuning-and-evaluation))
 
-
 ## Download and install summary
 
 ### Material for domain adaptive pretraining
