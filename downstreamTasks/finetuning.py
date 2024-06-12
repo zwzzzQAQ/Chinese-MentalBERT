@@ -9,7 +9,7 @@ from sklearn.model_selection import StratifiedKFold
 import numpy as np
 warnings.filterwarnings("ignore")
 from sklearn.model_selection import KFold
-
+from sklearn.metrics import precision_recall_fscore_support
 def calculate_evaluation(predictions, true_labels):
     # 使用'micro'平均来计算精确度、召回率和F1分数
     precision, recall, f1, _ = precision_recall_fscore_support(true_labels, predictions, average='micro')
