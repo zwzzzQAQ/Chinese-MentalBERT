@@ -6,21 +6,11 @@ import pandas as pd
 import numpy as np
 from sklearn import metrics
 warnings.filterwarnings("ignore")
-def calculate_evaluation(prediction, true_label, type):
-    recall_list = []
-    precision_list = []
-    f1_list = []
-    for i in range(0, len(true_label)):
-        recall = metrics.recall_score(true_label[i], prediction[i], average=type)
-        recall_list.append(recall)
-        precision = metrics.precision_score(true_label[i], prediction[i], average=type)
-        precision_list.append(precision)
-        f1 = metrics.f1_score(true_label[i], prediction[i], average=type)
-        f1_list.append(f1)
-    recall_list = np.array(recall_list)
-    precision_list = np.array(precision_list)
-    f1_list = np.array(f1_list)
-    return np.mean(recall_list), np.mean(precision_list), np.mean(f1_list)
+
+def calculate_evaluation(predictions, true_labels):
+    # 使用'micro'平均来计算精确度、召回率和F1分数
+    precision, recall, f1, _ = precision_recall_fscore_support(true_labels, predictions, average='micro')
+    return recall, precision, f1
 
 # 加载预训练模型和分词器
 tokenizer = BertTokenizer.from_pretrained('Chinese-MentalBERT')
@@ -87,5 +77,5 @@ for batch in val_loader:
         predictions = np.where(logits_np >= 0.5, 1, 0)
         predict = np.concatenate((predict, predictions))
         gt = np.concatenate((gt, labels.cpu().numpy()))
-recall, precision, f1 = calculate_evaluation(predict, gt, type='macro')
+recall, precision, f1 = calculate_evaluation(predict, gt)
 print('  F1:', f1, '  recall:', recall, '  precision:', precision)
