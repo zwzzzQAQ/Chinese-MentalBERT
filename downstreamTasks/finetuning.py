@@ -9,21 +9,12 @@ from sklearn.model_selection import StratifiedKFold
 import numpy as np
 warnings.filterwarnings("ignore")
 from sklearn.model_selection import KFold
-def calculate_evaluation(prediction, true_label, type):
-    recall_list = []
-    precision_list = []
-    f1_list = []
-    for i in range(0, len(true_label)):
-        recall = metrics.recall_score(true_label[i], prediction[i], average=type)
-        recall_list.append(recall)
-        precision = metrics.precision_score(true_label[i], prediction[i], average=type)
-        precision_list.append(precision)
-        f1 = metrics.f1_score(true_label[i], prediction[i], average=type)
-        f1_list.append(f1)
-    recall_list = np.array(recall_list)
-    precision_list = np.array(precision_list)
-    f1_list = np.array(f1_list)
-    return np.mean(recall_list), np.mean(precision_list), np.mean(f1_list)
+
+def calculate_evaluation(predictions, true_labels):
+    # 使用'micro'平均来计算精确度、召回率和F1分数
+    precision, recall, f1, _ = precision_recall_fscore_support(true_labels, predictions, average='micro')
+    return recall, precision, f1
+
 
 class TextDataset(Dataset):
     def __init__(self, texts, labels, tokenizer, max_len=128):
@@ -129,7 +120,7 @@ for fold, (train_idx, val_idx) in enumerate(kf.split(texts)):
                 predict = np.concatenate((predict, predictions))
                 gt = np.concatenate((gt, labels.cpu().numpy()))
 
-        recall, precision, f1 = calculate_evaluation(predict, gt, type='macro')
+        recall, precision, f1 = calculate_evaluation(predict, gt)
         print(f'Fold: {fold+1}, Epoch: {epoch+1}, F1: {f1}, Recall: {recall}, Precision: {precision}')
 
         # 检查并保存最佳模型
