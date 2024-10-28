@@ -137,6 +137,17 @@ Then you can evaluate like this:
 ```bash
 python evaluate.py
 ```
+## Citation
+Article address：[https://arxiv.org/pdf/2410.10323.pdf](https://arxiv.org/pdf/2410.10323.pdf)
+```bash
+@article{zhai2024mentalglm,
+  title={MentalGLM Series: Explainable Large Language Models for Mental Health Analysis on Chinese Social Media},
+  author={Zhai, Wei and Bai, Nan and Zhao, Qing and Li, Jianqiang and Wang, Fan and Qi, Hongzhi and Jiang, Meng and Wang, Xiaoqin and Yang, Bing Xiang and Fu, Guanghui},
+  journal={arXiv preprint arXiv:2410.10323},
+  year={2024}
+}
+```
+
 ## References
 1. Genghao Li, Bing Li, Langlin Huang, Sibing Hou, et al. 2020. Automatic construction of a depressiondomain lexicon based on microblogs: text mining study. JMIR medical informatics, 8(6):e17650.
 
